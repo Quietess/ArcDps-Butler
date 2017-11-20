@@ -13,16 +13,21 @@ namespace RaidTool.Models
 		private TimeSpan _encounterTime;
 		private string _name;
 		private string _parsedLogPath;
-		private bool? _uploadComplete;
+		private bool? _raidarUploadComplete;
+        private bool? _reportUploadComplete;
+        private bool? _reportPostComplete;
+        private string _reportUrl;
 
-		public EncounterLog(string name, string parsedLogPath, string evtcPath)
+        public EncounterLog(string name, string parsedLogPath, string evtcPath)
 		{
 			Name = name;
 			ParsedLogPath = parsedLogPath;
 			EvtcPath = evtcPath;
 			ParseDate = DateTime.UtcNow;
-			UploadComplete = false;
-			CharacterStatistics = new ObservableCollection<CharacterStatistics>();
+			RaidarUploadComplete = false;
+            ReportUploadComplete = false;
+            ReportPostComplete = false;
+            CharacterStatistics = new ObservableCollection<CharacterStatistics>();
 		}
 
 		public DateTime EncounterDate
@@ -71,12 +76,27 @@ namespace RaidTool.Models
 			set => _allDps = this.RaiseAndSetIfChanged(ref _allDps, value);
 		}
 
-		public bool? UploadComplete
+		public bool? RaidarUploadComplete
 		{
-			get => _uploadComplete;
-			set => _uploadComplete = this.RaiseAndSetIfChanged(ref _uploadComplete, value);
+			get => _raidarUploadComplete;
+			set => _raidarUploadComplete = this.RaiseAndSetIfChanged(ref _raidarUploadComplete, value);
 		}
 
-		public ObservableCollection<CharacterStatistics> CharacterStatistics { get; }
+        public bool? ReportUploadComplete {
+            get => _reportUploadComplete;
+            set => _reportUploadComplete = this.RaiseAndSetIfChanged(ref _reportUploadComplete, value);
+        }
+
+        public bool? ReportPostComplete {
+            get => _reportPostComplete;
+            set => _reportPostComplete = this.RaiseAndSetIfChanged(ref _reportPostComplete, value);
+        }
+
+        public ObservableCollection<CharacterStatistics> CharacterStatistics { get; }
+
+        public string ReportUrl {
+            get => _reportUrl;
+            set => _reportUrl = this.RaiseAndSetIfChanged(ref _reportUrl, value);
+        }
 	}
 }

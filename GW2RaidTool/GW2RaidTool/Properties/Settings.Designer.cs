@@ -130,5 +130,41 @@ namespace RaidTool.Properties {
                 this["AutoUploadToRaidar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DiscordToken {
+            get {
+                return ((string)(this["DiscordToken"]));
+            }
+            set {
+                this["DiscordToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ulong DiscordChannelID {
+            get {
+                return ((ulong)(this["DiscordChannelID"]));
+            }
+            set {
+                this["DiscordChannelID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DiscordTitle {
+            get {
+                return ((string)(this["DiscordTitle"]));
+            }
+            set {
+                this["DiscordTitle"] = value;
+            }
+        }
     }
 }

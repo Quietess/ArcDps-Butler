@@ -22,6 +22,7 @@ using RaidTool.Messages;
 using RaidTool.Models;
 using RaidTool.Properties;
 using ReactiveUI;
+using RaidTool.Logic;
 
 namespace RaidTool.ViewModels
 {
@@ -30,8 +31,10 @@ namespace RaidTool.ViewModels
 		private readonly IFileWatcher _fileWatcher;
 		private readonly IMessageBus _messageBus;
 		private readonly IEnumerable<ILogDetectionStrategy> _logDetectionStrategies;
-		private readonly Func<IRaidarUploader> _uploaderFunc;
-		private bool _isVisible;
+		private readonly Func<RaidarUploader> _raidarUploaderFunc;
+        private readonly Func<ReportUploader> _reportUploaderFunc;
+        private readonly Func<ReportPoster> _reportPosterFunc;
+        private bool _isVisible;
 		private string _lastLogMessage;
 		private LogFilterEnum _logFilter;
 		private string _logType;
@@ -43,21 +46,25 @@ namespace RaidTool.ViewModels
 
 		public MainViewModel(IFileWatcher fileWatcher, IMessageBus messageBus, 
 			IRaidHerosUpdater raidHerosUpdater, IEnumerable<ILogDetectionStrategy> logDetectionStrategies,
-			Func<IRaidarUploader> uploaderFunc)
+			Func<RaidarUploader> raidarUploaderFunc, Func<ReportUploader> reportUploaderFunc, Func<ReportPoster> reportPosterFunc)
 		{
 			_fileWatcher = fileWatcher;
 			_messageBus = messageBus;
 			_logDetectionStrategies = logDetectionStrategies;
-			_uploaderFunc = uploaderFunc;
+			_raidarUploaderFunc = raidarUploaderFunc;
+            _reportUploaderFunc = reportUploaderFunc;
+            _reportPosterFunc = reportPosterFunc;
+            DiscClient.Connect();
 
-			_logDetectionStrategies.OrderBy(i => i.Name).ToList().ForEach(s => LogTypes.Add(s.Name));
+            _logDetectionStrategies.OrderBy(i => i.Name).ToList().ForEach(s => LogTypes.Add(s.Name));
 
 			messageBus.Listen<NewEncounterMessage>().Subscribe(HandleNewEncounter);
 			messageBus.Listen<UpdatedEncounterMessage>().Subscribe(HandleUpdatedEncounter);
 			messageBus.Listen<LogMessage>().Subscribe(HandleNewLogMessage);
 			messageBus.Listen<UploadedEncounterMessage>().Subscribe(HandleUploadedEncounterMessage);
+            messageBus.Listen<UploadedReportMessage>().Subscribe(HandleUploadedReportMessage);
 
-			Task raidHerosUpdateTask = null;
+            Task raidHerosUpdateTask = null;
 			if (UseRaidHeros)
 			{
 				raidHerosUpdateTask = Task.Run(() =>
@@ -71,8 +78,9 @@ namespace RaidTool.ViewModels
 
 			ParseMessages = new ObservableCollection<string>();
 			OpenCommand = new RelayCommand(OpenLog, _ => SelectedLog != null);
-			UploadRaidarCommand = new RelayCommand(UploadRaidar, _ => DisplayedRaidHerosLogFiles.Any(i => i.UploadComplete == false));
-			UploadCommand = new RelayCommand(UploadLogFiles, _ => RaidHerosLogFiles.Any());
+			UploadRaidarCommand = new RelayCommand(UploadRaidar, _ => DisplayedRaidHerosLogFiles.Any(i => i.RaidarUploadComplete == false));
+            UploadReportCommand = new RelayCommand(UploadReports, _ => DisplayedRaidHerosLogFiles.Any(i => i.ReportUploadComplete == false));
+            PostReportDiscordCommand = new RelayCommand(PostReportsDiscord, _ => RaidHerosLogFiles.Any(i => i.ReportPostComplete == false));
 			OpenSkillsCommand = new RelayCommand(ShowSkills);
 			ClearCommand = new RelayCommand(ClearSelectedItem, _ => SelectedLog != null);
 			ClearAllCommand = new RelayCommand(_ =>
@@ -109,6 +117,30 @@ namespace RaidTool.ViewModels
 			}
 		}
 
+
+        public ICommand PostReportDiscordCommand { get; set; }
+
+        private void PostReportsDiscord(object obj)
+        {
+            _reportPosterFunc().RefreshEmbed();
+            Task[] tasks = new Task[DisplayedRaidHerosLogFiles.Count(e => e.ReportPostComplete != true)];
+            int i = 0;
+
+            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles.Where(e => e.ReportUploadComplete != true))
+                tasks[i++] = Task.Run(() => _reportUploaderFunc().Upload(displayedRaidHerosLogFile));
+
+            Task.WaitAll(tasks);
+
+            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles.Where(e => e.ReportPostComplete != true))
+                if (displayedRaidHerosLogFile.ReportUploadComplete == true)
+                    _reportPosterFunc().AddReport(displayedRaidHerosLogFile);
+
+            Task.Run(() => _reportPosterFunc().Upload(null));
+
+            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles)
+                displayedRaidHerosLogFile.ReportPostComplete = true;
+        }
+
 		public string RaidarUsername
 		{
 			get => Settings.Default.RaidarUser;
@@ -123,43 +155,25 @@ namespace RaidTool.ViewModels
 		{
 			foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles)
 			{
-				if(displayedRaidHerosLogFile.UploadComplete == true) continue;
-				displayedRaidHerosLogFile.UploadComplete = null;
-				Task.Run(() => _uploaderFunc().Upload(displayedRaidHerosLogFile));
+				if(displayedRaidHerosLogFile.RaidarUploadComplete == true) continue;
+				displayedRaidHerosLogFile.RaidarUploadComplete = null;
+				Task.Run(() => _raidarUploaderFunc().Upload(displayedRaidHerosLogFile));
 			}
 		}
 
 		public ICommand UploadRaidarCommand { get; set; }
 
-		private void UploadLogFiles(object obj)
+		private void UploadReports(object obj)
 		{
-			try
-			{
-				var enumerable = DisplayedRaidHerosLogFiles.Select(i => i.EvtcPath).Distinct().ToList();
-				var directoryName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "temp");
+            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles)
+            {
+                if (displayedRaidHerosLogFile.ReportUploadComplete == true) continue;
+                displayedRaidHerosLogFile.ReportUploadComplete = null;
+                Task.Run(() => _reportUploaderFunc().Upload(displayedRaidHerosLogFile));
+            }
+        }
 
-				if (Directory.Exists(directoryName))
-				{
-					Directory.Delete(directoryName, true);
-				}
-				Directory.CreateDirectory(directoryName);
-
-				Parallel.ForEach(enumerable, s =>
-				{
-					var fileInfo = new FileInfo(s);
-					var fileInfoName = fileInfo.Name;
-					File.Copy(s, Path.Combine(directoryName, fileInfoName));
-				});
-
-				Process.Start(directoryName);
-			}
-			catch (Exception e)
-			{
-				_messageBus.SendMessage(new LogMessage(e.Message));
-			}
-		}
-
-		public ICommand UploadCommand { get; set; }
+		public ICommand UploadReportCommand { get; set; }
 
 		private void ShowSkills(object obj)
 		{
@@ -347,23 +361,19 @@ namespace RaidTool.ViewModels
 		private void HandleUploadedEncounterMessage(UploadedEncounterMessage uploadedEncounterMessage)
 		{
 			_messageBus.SendMessage(
-				new LogMessage($"Upload succeeded for {uploadedEncounterMessage.EncounterLog.Name}."));
+				new LogMessage($"GW2 Raidar Upload succeeded for {uploadedEncounterMessage.EncounterLog.Name}."));
 		}
 
-		private void OpenLog(object obj)
+        private void HandleUploadedReportMessage(UploadedReportMessage uploadedReportMessage)
+        {
+            _messageBus.SendMessage(
+                new LogMessage($"DPS.Report Upload succeeded for {uploadedReportMessage.EncounterLog.Name}."));
+        }
+
+        private void OpenLog(object obj)
 		{
 			var encounterLog = obj as IEncounterLog;
-			if (encounterLog != null)
-			{
-				if (File.Exists(encounterLog.ParsedLogPath))
-				{
-					Process.Start(encounterLog.ParsedLogPath);
-				}
-			}
-			else
-			{
-				_messageBus.SendMessage(new LogMessage("html file not present, open action canceled."));
-			}
+			Process.Start(encounterLog.ReportUrl);
 		}
 
 		public bool OpenNewRaidHerosFiles
@@ -483,5 +493,29 @@ namespace RaidTool.ViewModels
 				SelectedLog = selectedLog;
 			}
 		}
-	}
+
+        public string BotToken {
+            get => Settings.Default.DiscordToken;
+            set {
+                Settings.Default.DiscordToken = value;
+                Settings.Default.Save();
+            }
+        }
+
+        public string PostTitle {
+            get => Settings.Default.DiscordTitle;
+            set {
+                Settings.Default.DiscordTitle = value;
+                Settings.Default.Save();
+            }
+        }
+
+        public ulong ChannelID {
+            get => Settings.Default.DiscordChannelID;
+            set {
+                Settings.Default.DiscordChannelID = value;
+                Settings.Default.Save();
+            }
+        }
+    }
 }

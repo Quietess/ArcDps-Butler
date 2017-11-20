@@ -78,6 +78,9 @@
     <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="DSharpPlus, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DSharpPlus.3.2.3\lib\net46\DSharpPlus.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.6.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.6.0\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -89,6 +92,9 @@
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Octicons, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Octicons.1.9.1\lib\net46\MahApps.Metro.IconPacks.Octicons.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI, Version=7.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\reactiveui-core.7.2.0\lib\Net45\ReactiveUI.dll</HintPath>
@@ -153,7 +159,7 @@
     <Compile Include="Logic\Interfaces\ILogFileConverter.cs" />
     <Compile Include="Logic\Interfaces\ILogfileParser.cs" />
     <Compile Include="Logic\Interfaces\IRaidHerosUpdater.cs" />
-    <Compile Include="Logic\Interfaces\IRaidarUploader.cs" />
+    <Compile Include="Logic\Interfaces\IEncounterUploader.cs" />
     <Compile Include="Logic\LogDetectionStrategies\CompressedStrategy.cs" />
     <Compile Include="Logic\Interfaces\ILogDetectionStrategy.cs" />
     <Compile Include="Logic\LogDetectionStrategies\IniReaderStrategy.cs" />
@@ -161,11 +167,15 @@
     <Compile Include="Logic\LogDetectionStrategies\WaitStrategy.cs" />
     <Compile Include="Logic\LogFileConverter.cs" />
     <Compile Include="Logic\LogfileParser.cs" />
+    <Compile Include="Logic\DiscClient.cs" />
+    <Compile Include="Logic\ReportPoster.cs" />
+    <Compile Include="Logic\ReportUploader.cs" />
     <Compile Include="Logic\RaidarUploader.cs" />
     <Compile Include="Logic\RaidHerosUpdater.cs" />
     <Compile Include="Messages\LogMessage.cs" />
     <Compile Include="Messages\NewEncounterMessage.cs" />
     <Compile Include="Messages\UpdatedEncounterMessage.cs" />
+    <Compile Include="Messages\UploadedReportMessage.cs" />
     <Compile Include="Messages\UploadedEncounterMessage.cs" />
     <Compile Include="Models\CharacterStatistics.cs" />
     <Compile Include="Models\IEncounterLog.cs" />

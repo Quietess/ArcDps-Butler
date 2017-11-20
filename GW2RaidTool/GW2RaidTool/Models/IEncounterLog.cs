@@ -15,7 +15,10 @@ namespace RaidTool.Models
 		double BossDps { get; set; }
 		double AllDps { get; set; }
 		ObservableCollection<CharacterStatistics> CharacterStatistics { get; }
+        string ReportUrl { get; set; }
 
-		bool? UploadComplete { get; set; }
-	}
+		bool? RaidarUploadComplete { get; set; }
+        bool? ReportUploadComplete { get; set; }
+        bool? ReportPostComplete { get; set; }
+    }
 }

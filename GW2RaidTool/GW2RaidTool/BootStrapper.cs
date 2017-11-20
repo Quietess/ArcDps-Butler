@@ -19,8 +19,10 @@ namespace RaidTool
 			containerBuilder.RegisterType<LogfileParser>().As<ILogfileParser>();
 			containerBuilder.RegisterType<LogFileConverter>().As<ILogFileConverter>();
 			containerBuilder.RegisterType<FileWatcher>().As<IFileWatcher>();
-			containerBuilder.RegisterType<RaidarUploader>().As<IRaidarUploader>();
-			containerBuilder.RegisterType<HtmlFileWatcher>().As<IHtmlFileWatcher>();
+			containerBuilder.RegisterType<RaidarUploader>().As<RaidarUploader>();
+            containerBuilder.RegisterType<ReportUploader>().As<ReportUploader>();
+            containerBuilder.RegisterType<ReportPoster>().As<ReportPoster>();
+            containerBuilder.RegisterType<HtmlFileWatcher>().As<IHtmlFileWatcher>();
 			containerBuilder.RegisterType<LocalLogParser>().As<ILocalLogParser>();
 			containerBuilder.RegisterType<RaidHerosUpdater>().As<IRaidHerosUpdater>();
 			containerBuilder.RegisterType<CompressedStrategy>().As<ILogDetectionStrategy>();
