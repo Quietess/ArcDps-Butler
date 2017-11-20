@@ -19,7 +19,7 @@ In addition, Butler can upload log files to DPS.Report, GW2 Raidar, and post the
 [EVTC Log Parser](https://github.com/phoenix-oosd/EVTC-Log-Parser)
 
 ## Installation
-- Download the application from here: [latest version (1.1.0)](https://github.com/Pikl/ArcDps-Butler/raw/master/Versions/1.1.0/ArcDps Butler 1.1.0.zip)
+- Download the application from here: [latest version - 1.1.0](https://github.com/Pikl/ArcDps-Butler/raw/master/Versions/1.1.0/ArcDps Butler 1.1.0.zip)
 - Unzip the content
 - Run the "ArcDps Butler.exe" file
 
