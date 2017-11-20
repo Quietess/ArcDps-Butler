@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using ReactiveUI;
 
-namespace RaidTool.Models
+namespace Butler.Models
 {
 	public class EncounterLog : ReactiveObject, IEncounterLog
 	{

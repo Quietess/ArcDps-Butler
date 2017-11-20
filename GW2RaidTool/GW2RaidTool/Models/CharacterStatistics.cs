@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace RaidTool.Models
+namespace Butler.Models
 {
 	public class CharacterStatistics
 	{

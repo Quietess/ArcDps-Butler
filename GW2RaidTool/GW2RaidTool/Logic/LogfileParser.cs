@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Messages;
+using Butler.Logic.Interfaces;
+using Butler.Messages;
 using ReactiveUI;
 
-namespace RaidTool.Logic
+namespace Butler.Logic
 {
 	public class LogfileParser : ILogfileParser
 	{

@@ -2,12 +2,12 @@
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Messages;
-using RaidTool.Models;
+using Butler.Logic.Interfaces;
+using Butler.Messages;
+using Butler.Models;
 using ReactiveUI;
 
-namespace RaidTool.Logic
+namespace Butler.Logic
 {
 	public class HtmlFileWatcher : IHtmlFileWatcher
 	{

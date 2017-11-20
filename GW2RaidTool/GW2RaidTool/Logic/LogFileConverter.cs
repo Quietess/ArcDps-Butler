@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using EVTC_Log_Parser.Model;
 using EVTC_Log_Parser.Model.Data.Table;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Models;
+using Butler.Logic.Interfaces;
+using Butler.Models;
 
-namespace RaidTool.Logic
+namespace Butler.Logic
 {
 	public class LogFileConverter : ILogFileConverter
 	{

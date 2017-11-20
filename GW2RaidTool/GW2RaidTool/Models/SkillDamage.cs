@@ -1,4 +1,4 @@
-﻿namespace RaidTool.Models
+﻿namespace Butler.Models
 {
 	public class SkillDamage
 	{

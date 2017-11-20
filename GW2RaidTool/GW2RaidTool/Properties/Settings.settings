@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RaidTool.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Butler.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="WaitTime" Type="System.String" Scope="User">
@@ -24,7 +24,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UseRaidHeros" Type="System.String" Scope="User">
-      <Value Profile="(Default)">true</Value>
+      <Value Profile="(Default)">false</Value>
     </Setting>
     <Setting Name="AutoUploadToRaidar" Type="System.String" Scope="User">
       <Value Profile="(Default)">false</Value>

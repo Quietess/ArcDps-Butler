@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace RaidTool.Helper
+namespace Butler.Helper
 {
     internal static class FileInUseChecker
     {

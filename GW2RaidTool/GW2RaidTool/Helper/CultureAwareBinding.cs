@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace RaidTool.Helper
+namespace Butler.Helper
 {
 	public class CultureAwareBinding : Binding
 	{

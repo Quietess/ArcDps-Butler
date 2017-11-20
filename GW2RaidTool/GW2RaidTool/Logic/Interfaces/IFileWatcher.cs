@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace RaidTool.Logic.Interfaces
+namespace Butler.Logic.Interfaces
 {
 	public interface IFileWatcher
 	{

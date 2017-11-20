@@ -4,14 +4,14 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EVTC_Log_Parser;
-using RaidTool.Helper;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Messages;
-using RaidTool.Models;
-using RaidTool.Properties;
+using Butler.Helper;
+using Butler.Logic.Interfaces;
+using Butler.Messages;
+using Butler.Models;
+using Butler.Properties;
 using ReactiveUI;
 
-namespace RaidTool.Logic
+namespace Butler.Logic
 {
 	public class FileWatcher : IFileWatcher
 	{

@@ -1,13 +1,13 @@
 ﻿using System;
 using Autofac;
 using EVTC_Log_Parser;
-using RaidTool.Logic;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Logic.LogDetectionStrategies;
-using RaidTool.ViewModels;
+using Butler.Logic;
+using Butler.Logic.Interfaces;
+using Butler.Logic.LogDetectionStrategies;
+using Butler.ViewModels;
 using ReactiveUI;
 
-namespace RaidTool
+namespace Butler
 {
 	public static class BootStrapper
 	{

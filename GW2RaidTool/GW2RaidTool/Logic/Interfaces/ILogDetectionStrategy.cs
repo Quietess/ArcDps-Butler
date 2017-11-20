@@ -1,6 +1,6 @@
 using System;
 
-namespace RaidTool.Logic.Interfaces
+namespace Butler.Logic.Interfaces
 {
 	public interface ILogDetectionStrategy
 	{

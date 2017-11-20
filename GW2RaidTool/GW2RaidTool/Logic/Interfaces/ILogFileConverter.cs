@@ -1,7 +1,7 @@
 using EVTC_Log_Parser.Model;
-using RaidTool.Models;
+using Butler.Models;
 
-namespace RaidTool.Logic.Interfaces
+namespace Butler.Logic.Interfaces
 {
 	public interface ILogFileConverter
 	{

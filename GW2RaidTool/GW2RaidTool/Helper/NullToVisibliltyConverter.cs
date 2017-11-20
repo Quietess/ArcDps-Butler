@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace RaidTool.Helper
+namespace Butler.Helper
 {
 	public class NullToVisibliltyConverter : IValueConverter
 	{

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RaidTool.Properties {
+namespace Butler.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -109,7 +109,7 @@ namespace RaidTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        [global::System.Configuration.DefaultSettingValueAttribute("false")]
         public string UseRaidHeros {
             get {
                 return ((string)(this["UseRaidHeros"]));

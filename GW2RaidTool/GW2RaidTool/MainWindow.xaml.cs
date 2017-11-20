@@ -2,10 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using RaidTool.Helper;
-using RaidTool.ViewModels;
+using Butler.Helper;
+using Butler.ViewModels;
 
-namespace RaidTool
+namespace Butler
 {
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml

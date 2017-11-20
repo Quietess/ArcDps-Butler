@@ -1,7 +1,7 @@
-using RaidTool.Models;
+using Butler.Models;
 using System.Collections.ObjectModel;
 
-namespace RaidTool.Logic.Interfaces
+namespace Butler.Logic.Interfaces
 {
 	public interface IEncounterUploader
 	{

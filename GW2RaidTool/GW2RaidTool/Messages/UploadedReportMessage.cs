@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RaidTool.Models;
+using Butler.Models;
 
-namespace RaidTool.Messages
+namespace Butler.Messages
 {
     public class UploadedReportMessage
     {

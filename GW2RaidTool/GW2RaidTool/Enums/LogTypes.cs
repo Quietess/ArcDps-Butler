@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RaidTool.Enums
+namespace Butler.Enums
 {
 	public static class LogTypes
 	{

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace RaidTool.Helper
+namespace Butler.Helper
 {
 	public class RelayCommand : ICommand
 	{

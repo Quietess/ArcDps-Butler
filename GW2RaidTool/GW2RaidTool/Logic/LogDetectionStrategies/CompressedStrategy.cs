@@ -1,8 +1,8 @@
 ﻿using System.Threading;
-using RaidTool.Helper;
-using RaidTool.Logic.Interfaces;
+using Butler.Helper;
+using Butler.Logic.Interfaces;
 
-namespace RaidTool.Logic.LogDetectionStrategies
+namespace Butler.Logic.LogDetectionStrategies
 {
 	public class CompressedStrategy : ILogDetectionStrategy
 	{

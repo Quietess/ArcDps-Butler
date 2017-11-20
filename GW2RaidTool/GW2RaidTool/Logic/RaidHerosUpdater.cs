@@ -5,12 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using HtmlAgilityPack;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Messages;
-using RaidTool.Properties;
+using Butler.Logic.Interfaces;
+using Butler.Messages;
+using Butler.Properties;
 using ReactiveUI;
 
-namespace RaidTool.Logic
+namespace Butler.Logic
 {
 	public class RaidHerosUpdater : IRaidHerosUpdater
 	{

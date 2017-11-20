@@ -1,4 +1,4 @@
-﻿namespace RaidTool.Messages
+﻿namespace Butler.Messages
 {
 	public class LogMessage
 	{

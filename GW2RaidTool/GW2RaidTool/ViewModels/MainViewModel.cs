@@ -14,17 +14,17 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using IniParser;
 using Microsoft.Win32;
-using RaidTool.Enums;
-using RaidTool.Helper;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Logic.LogDetectionStrategies;
-using RaidTool.Messages;
-using RaidTool.Models;
-using RaidTool.Properties;
+using Butler.Enums;
+using Butler.Helper;
+using Butler.Logic.Interfaces;
+using Butler.Logic.LogDetectionStrategies;
+using Butler.Messages;
+using Butler.Models;
+using Butler.Properties;
 using ReactiveUI;
-using RaidTool.Logic;
+using Butler.Logic;
 
-namespace RaidTool.ViewModels
+namespace Butler.ViewModels
 {
 	public class MainViewModel : ReactiveObject
 	{

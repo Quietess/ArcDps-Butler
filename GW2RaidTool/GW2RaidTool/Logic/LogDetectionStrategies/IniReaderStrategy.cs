@@ -3,13 +3,13 @@ using System.IO;
 using System.Threading;
 using IniParser;
 using Microsoft.Win32;
-using RaidTool.Helper;
-using RaidTool.Logic.Interfaces;
-using RaidTool.Messages;
-using RaidTool.Properties;
+using Butler.Helper;
+using Butler.Logic.Interfaces;
+using Butler.Messages;
+using Butler.Properties;
 using ReactiveUI;
 
-namespace RaidTool.Logic.LogDetectionStrategies
+namespace Butler.Logic.LogDetectionStrategies
 {
 	public class IniReaderStrategy : ILogDetectionStrategy
 	{

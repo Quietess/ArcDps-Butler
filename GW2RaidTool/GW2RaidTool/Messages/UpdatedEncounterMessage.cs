@@ -1,6 +1,6 @@
-﻿using RaidTool.Models;
+﻿using Butler.Models;
 
-namespace RaidTool.Messages
+namespace Butler.Messages
 {
 	public class UpdatedEncounterMessage
 	{

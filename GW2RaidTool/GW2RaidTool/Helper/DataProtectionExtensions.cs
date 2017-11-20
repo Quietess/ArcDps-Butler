@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RaidTool.Helper
+namespace Butler.Helper
 {
 	public static class DataProtectionExtensions
 	{

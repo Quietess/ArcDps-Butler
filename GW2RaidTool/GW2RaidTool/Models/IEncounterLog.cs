@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace RaidTool.Models
+namespace Butler.Models
 {
 	public interface IEncounterLog
 	{

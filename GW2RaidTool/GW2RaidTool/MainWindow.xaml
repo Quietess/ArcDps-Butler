@@ -1,13 +1,13 @@
-﻿<controls:MetroWindow x:Class="RaidTool.MainWindow"
+﻿<controls:MetroWindow x:Class="Butler.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:viewModels="clr-namespace:RaidTool.ViewModels"
-                      xmlns:helper="clr-namespace:RaidTool.Helper"
-                      xmlns:enums="clr-namespace:RaidTool.Enums"
+                      xmlns:viewModels="clr-namespace:Butler.ViewModels"
+                      xmlns:helper="clr-namespace:Butler.Helper"
+                      xmlns:enums="clr-namespace:Butler.Enums"
                       mc:Ignorable="d"
                       NonActiveWindowTitleBrush="{DynamicResource AccentColorBrush}"
                       Title="ArcDps Butler" Height="800" Width="1024"
@@ -99,29 +99,33 @@
 	                         IsOpen="{Binding ElementName=ShowAboutButton, Path=IsChecked}"
 	                         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=False}">
 		        <StackPanel Margin="5">
-			        <Label Content="GW2 Raid Tool" FontFamily="{DynamicResource HeaderFontFamily}"
+			        <Label Content="ArcDps Butler" FontFamily="{DynamicResource HeaderFontFamily}"
 			               FontSize="{DynamicResource SubHeaderFontSize}" />
-			        <Label Content="DF Tools" FontFamily="{DynamicResource HeaderFontFamily}"
+			        <Label Content="DF Tools, Also Pikls.8710" FontFamily="{DynamicResource HeaderFontFamily}"
 			               FontSize="{DynamicResource FlyoutHeaderFontSize}" />
-			        <Label Content="Version 1.0.6" FontFamily="{DynamicResource HeaderFontFamily}"
+			        <Label Content="Version 1.1.0" FontFamily="{DynamicResource HeaderFontFamily}"
 			               FontSize="{DynamicResource ContentFontSize}" />
 			        <TextBlock Margin="5" FontFamily="{DynamicResource ContentFontFamily}" FontSize="{DynamicResource ContentFontSize}">
-					Special thanks to <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://raidheroes.tk/">RaidHeros</Hyperlink>, <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/phoenix-oosd/EVTC-Log-Parser">EVTC-Log-Parser</Hyperlink><LineBreak />
-					and <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://www.gw2raidar.com/">GW2Raidar</Hyperlink>
+					Special thanks: <LineBreak/>
+                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://raidheroes.tk/">RaidHeroes</Hyperlink><LineBreak/>
+                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://dps.report">DPS.Report</Hyperlink><LineBreak/>
+                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/phoenix-oosd/EVTC-Log-Parser">EVTC-Log-Parser</Hyperlink><LineBreak/>
+					<Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://www.gw2raidar.com/">GW2Raidar</Hyperlink>
 					</TextBlock>
 
 			        <Label Content="Changelog" Margin="0 10 0 0" FontFamily="{DynamicResource HeaderFontFamily}"
 			               FontSize="{DynamicResource FlyoutHeaderFontSize}" />
 					<TextBlock Margin="5" FontFamily="{DynamicResource ContentFontFamily}" FontSize="{DynamicResource ContentFontSize}">
-						1.0.6
+						1.1.0 - Pikly
 						<LineBreak />
-						- Filter out non dps events in parser<LineBreak />
-						- Adapt to new GW2Raidar API (error codes)<LineBreak />
-						- Add option to not use RaidHeros<LineBreak />
-						- Add option to automatically upload new logs to GW2Raidar<LineBreak />
+						- Implemented DPS.Report uploading<LineBreak />
+						- Implemented Discord report posting<LineBreak />
+						- UI Colours<LineBreak />
+						- Fancy new name<LineBreak />
 						<LineBreak />
-						Older changes can be seen here: <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/M4xZ3r0/GW2RaidTool/releases">GitHub releases</Hyperlink>
-					</TextBlock>
+						Older changes can be seen here: <LineBreak/>
+                        <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/M4xZ3r0/GW2Butler/releases">M4xZ3r0's repo</Hyperlink>, and here: <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/Pikl/GW2Butler/releases">Pikl's repo</Hyperlink>.
+                    </TextBlock>
 					
 		        </StackPanel>
 	        </controls:Flyout>
