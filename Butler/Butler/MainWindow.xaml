@@ -220,7 +220,7 @@
             </DockPanel>
         </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding DisplayedRaidHerosLogFiles}" AutoGenerateColumns="False" Margin="5"
-                  SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedLog}"
+                  SelectionMode="Extended" IsReadOnly="True" SelectedItem="{Binding SelectedLog}"
                   ClipboardCopyMode="None" MinHeight="100" x:Name="EncounterGrid" Background="#455166">
             <DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenCommand}" 

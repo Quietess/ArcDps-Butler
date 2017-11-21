@@ -8,7 +8,7 @@ using Butler.ViewModels;
 namespace Butler
 {
 	/// <summary>
-	/// Interaktionslogik für MainWindow.xaml
+	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow
 	{
@@ -16,6 +16,7 @@ namespace Butler
 		{
 			InitializeComponent();
 			DataContext = viewModel;
+            viewModel.EncounterGrid = EncounterGrid;
 		}
 
 		private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

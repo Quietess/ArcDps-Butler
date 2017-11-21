@@ -23,6 +23,7 @@ using Butler.Models;
 using Butler.Properties;
 using ReactiveUI;
 using Butler.Logic;
+using System.Windows.Controls;
 
 namespace Butler.ViewModels
 {
@@ -43,6 +44,7 @@ namespace Butler.ViewModels
 		private IEncounterLog _selectedLog;
 		private CharacterStatistics _selectedCharacterStatistics;
 		private bool _isSkillFlyoutVisisble;
+        internal DataGrid EncounterGrid;
 
 		public MainViewModel(IFileWatcher fileWatcher, IMessageBus messageBus, 
 			IRaidHerosUpdater raidHerosUpdater, IEnumerable<ILogDetectionStrategy> logDetectionStrategies,
@@ -126,14 +128,15 @@ namespace Butler.ViewModels
             Task[] tasks = new Task[DisplayedRaidHerosLogFiles.Count(e => e.ReportPostComplete != true)];
             int i = 0;
 
-            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles.Where(e => e.ReportUploadComplete != true))
-                tasks[i++] = Task.Run(() => _reportUploaderFunc().Upload(displayedRaidHerosLogFile));
+            foreach (var log in DisplayedRaidHerosLogFiles.Where(e => e.ReportUploadComplete != true))
+                if (EncounterGrid.SelectedItems.Contains(log))
+                    tasks[i++] = Task.Run(() => _reportUploaderFunc().Upload(log));
 
             Task.WaitAll(tasks);
 
-            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles.Where(e => e.ReportPostComplete != true))
-                if (displayedRaidHerosLogFile.ReportUploadComplete == true)
-                    _reportPosterFunc().AddReport(displayedRaidHerosLogFile);
+            foreach (var log in DisplayedRaidHerosLogFiles.Where(e => e.ReportUploadComplete == true))
+                if (EncounterGrid.SelectedItems.Contains(log))
+                    _reportPosterFunc().AddReport(log);
 
             Task.Run(() => _reportPosterFunc().Upload(null));
 
@@ -153,11 +156,13 @@ namespace Butler.ViewModels
 
 		private void UploadRaidar(object obj)
 		{
-			foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles)
+			foreach (var log in DisplayedRaidHerosLogFiles)
 			{
-				if(displayedRaidHerosLogFile.RaidarUploadComplete == true) continue;
-				displayedRaidHerosLogFile.RaidarUploadComplete = null;
-				Task.Run(() => _raidarUploaderFunc().Upload(displayedRaidHerosLogFile));
+				if(log.RaidarUploadComplete == true || !EncounterGrid.SelectedItems.Contains(log))
+                    continue;
+
+				log.RaidarUploadComplete = null;
+				Task.Run(() => _raidarUploaderFunc().Upload(log));
 			}
 		}
 
@@ -165,11 +170,13 @@ namespace Butler.ViewModels
 
 		private void UploadReports(object obj)
 		{
-            foreach (var displayedRaidHerosLogFile in DisplayedRaidHerosLogFiles)
+            foreach (var log in DisplayedRaidHerosLogFiles)
             {
-                if (displayedRaidHerosLogFile.ReportUploadComplete == true) continue;
-                displayedRaidHerosLogFile.ReportUploadComplete = null;
-                Task.Run(() => _reportUploaderFunc().Upload(displayedRaidHerosLogFile));
+                if (log.ReportUploadComplete == true || !EncounterGrid.SelectedItems.Contains(log))
+                    continue;
+
+                log.ReportUploadComplete = null;
+                Task.Run(() => _reportUploaderFunc().Upload(log));
             }
         }
 
