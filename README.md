@@ -23,6 +23,20 @@ In addition, Butler can upload log files to DPS.Report, GW2 Raidar, and post the
 - Unzip the content
 - Run the "ArcDps Butler.exe" file
 
+#For Discord Uploading
+- Visit the [developer section of Discord](https://discordapp.com/developers/applications/me)
+- Create a new application, name it whatever you want and give it whatever icon you want
+- Create a bot user near the bottom
+- Click to reveal token
+- This is your token
+- To invite the bot to your Discord channel, on this same page click "Generate oauth2 url"
+- Click copy next to the link on the page and open this link
+- Invite to your desired server
+- Next for the channel ID, visit [Discord from the browser](https://discordapp.com/channels/@me)
+- Visit the server and channel you want the bot to post into
+- In the URL of your browser, the second set of numbers after the forward slash is the channel ID
+
+
 ## Workflow
 So if you ask yourself "What the hell is this thing doing?" here is a small list:
 - Keeps an eye on the ArcDps log file folder
