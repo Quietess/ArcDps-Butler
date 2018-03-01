@@ -29,6 +29,9 @@
     <Setting Name="AutoUploadToRaidar" Type="System.String" Scope="User">
       <Value Profile="(Default)">false</Value>
     </Setting>
+    <Setting Name="AutoPushToDiscord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
     <Setting Name="DiscordToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

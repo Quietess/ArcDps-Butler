@@ -404,16 +404,27 @@ namespace Butler.ViewModels
 		}
 
 		public bool AutoUploadToRaidar
-		{
-			get => bool.Parse(Settings.Default.AutoUploadToRaidar);
-			set
-			{
-				Settings.Default.AutoUploadToRaidar = value.ToString();
-				Settings.Default.Save();
-			}
-		}
+        {
+            get => bool.Parse(Settings.Default.AutoUploadToRaidar);
+            set
+            {
+                Settings.Default.AutoUploadToRaidar = value.ToString();
+                Settings.Default.Save();
+            }
+        }
 
-		private void HandleNewEncounter(NewEncounterMessage encounterMessage)
+
+        public bool AutoPushToDiscord
+        {
+            get => bool.Parse(Settings.Default.AutoPushToDiscord);
+            set
+            {
+                Settings.Default.AutoPushToDiscord = value.ToString();
+                Settings.Default.Save();
+            }
+        }
+
+        private void HandleNewEncounter(NewEncounterMessage encounterMessage)
 		{
 			var encounterLog = encounterMessage.EncounterLog;
 
@@ -429,6 +440,10 @@ namespace Butler.ViewModels
 						{
 							UploadRaidar(null);
 						}
+                        if (AutoPushToDiscord)
+                        {
+                            PostReportsDiscord(null);
+                        }
 					}
 				}));
 		}
@@ -458,7 +473,8 @@ namespace Butler.ViewModels
 					if (encounterLog.EncounterResult != "Fail")
 					{
 						DisplayedRaidHerosLogFiles.Add(encounterLog);
-					}
+
+                    }
 					break;
 				case LogFilterEnum.All:
 				default:
@@ -505,14 +521,6 @@ namespace Butler.ViewModels
             get => Settings.Default.DiscordToken;
             set {
                 Settings.Default.DiscordToken = value;
-                Settings.Default.Save();
-            }
-        }
-
-        public string PostTitle {
-            get => Settings.Default.DiscordTitle;
-            set {
-                Settings.Default.DiscordTitle = value;
                 Settings.Default.Save();
             }
         }

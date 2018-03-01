@@ -18,7 +18,7 @@ namespace Butler.Logic
 {
     public class ReportPoster : IEncounterUploader
     {
-	    private readonly IMessageBus _messageBus;
+        private readonly IMessageBus _messageBus;
 
         static DiscordEmbedBuilder embed;
 
@@ -30,14 +30,15 @@ namespace Butler.Logic
             {
                 embed = new DiscordEmbedBuilder
                 {
-                    Color = new DiscordColor("#FF0000"),
-                    Title = Settings.Default.DiscordTitle,
+
                     Timestamp = DateTime.UtcNow
                 };
 
-                embed.WithFooter(DiscClient.client.CurrentUser.Username, DiscClient.client.CurrentUser.AvatarUrl);
+                embed.WithFooter("ArcDPS Butler", DiscClient.client.CurrentUser.AvatarUrl);
             }
         }
+
+        
 
         public void RefreshEmbed()
         {
@@ -45,12 +46,36 @@ namespace Butler.Logic
             embed.ClearFields();
         }
 
+
+
         public void AddReport(IEncounterLog log)
         {
-            embed.AddField(log.Name, log.ReportUrl, false);
+            if (log.EncounterResult != "Fail")
+            {
+                string EncounterResult = " - Successfully Killed";
+                string LogName = log.Name + EncounterResult;
+                embed.Title = LogName;
+                embed.Url = log.ReportUrl;
+                embed.Color = new DiscordColor("#00ff00");
+            }
+            else
+            {
+                string EncounterResult = " - Unsuccessful";
+                string LogName = log.Name + EncounterResult;
+                embed.Title = LogName;
+                embed.Url = log.ReportUrl;
+                embed.Color = new DiscordColor("#ff0000");
+            }
+            string AllDps = log.AllDps.ToString();
+            string BossDps = log.BossDps.ToString();
+            string EncounterTime = log.EncounterTime.ToString();
+            embed.AddField("All DPS:", AllDps, true);
+            embed.AddField("Boss DPS:", BossDps, true);
+            embed.AddField("Duration:", EncounterTime, true);
+
         }
 
-	    public void Upload(IEncounterLog log)
+        public void Upload(IEncounterLog log)
 	    {
             DiscClient.client.SendMessageAsync(DiscClient.channel, null, false, embed);
         }
