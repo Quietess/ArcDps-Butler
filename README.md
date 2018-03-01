@@ -23,7 +23,7 @@ In addition, Butler can upload log files to DPS.Report, GW2 Raidar, and post the
 - Unzip the content
 - Run the "ArcDps Butler.exe" file
 
-#For Discord Uploading
+##For Discord Uploading
 - Visit the [developer section of Discord](https://discordapp.com/developers/applications/me)
 - Create a new application, name it whatever you want and give it whatever icon you want
 - Create a bot user near the bottom
